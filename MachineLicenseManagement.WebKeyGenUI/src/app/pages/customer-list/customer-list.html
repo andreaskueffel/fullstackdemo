@@ -1,1 +1,7 @@
-<p>customer-list works!</p>
+
+<h2>Kundenliste</h2>
+    <ul>
+      <li *ngFor="let customer of customers">
+        <a>{{ customer.name }}</a>
+      </li>
+    </ul>
