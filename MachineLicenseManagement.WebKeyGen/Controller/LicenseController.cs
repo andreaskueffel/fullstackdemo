@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MachineLicenseManagement.WebKeyGen.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace MachineLicenseManagement.WebKeyGen.Controller
 {
@@ -12,9 +13,9 @@ namespace MachineLicenseManagement.WebKeyGen.Controller
             _licenseService = licenseService;
         }
         [HttpGet]
-        public IActionResult GetAll()
+        public ActionResult<IEnumerable<LicenseModel>> GetAll()
         {
-            var licenses = _licenseService.GetAll();
+            var licenses = _licenseService.GetLicenses();
             return Ok(licenses);
         }
         [HttpGet("{id}")]
@@ -28,16 +29,9 @@ namespace MachineLicenseManagement.WebKeyGen.Controller
         [HttpPost]
         public IActionResult Create([FromBody] LicenseModel license)
         {
-            var id = _licenseService.Create(license);
+            var id = _licenseService.SaveLicense(license);
             return CreatedAtAction(nameof(GetById), new { id }, license);
         }
-        [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
-        {
-            var success = _licenseService.Delete(id);
-            if (!success)
-                return NotFound();
-            return NoContent();
-        }
+        
     }
 }
