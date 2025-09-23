@@ -46,10 +46,14 @@ builder.Services.AddOpenApiDocument(config =>
 });
 
 var app = builder.Build();
+app.UsePathBase("/webkeygen");
+app.UseDefaultFiles();
+app.UseStaticFiles();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseOpenApi();
 app.UseSwaggerUi();
 app.MapControllers();
 app.UseCors(builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod());
+app.MapFallbackToFile("index.html");
 app.Run();
