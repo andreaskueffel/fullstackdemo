@@ -55,5 +55,5 @@ app.UseOpenApi();
 app.UseSwaggerUi();
 app.MapControllers();
 app.UseCors(builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod());
-app.MapFallbackToFile("index.html");
+//app.MapFallbackToFile("index.html");
 app.Run();
