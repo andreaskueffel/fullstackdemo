@@ -1,5 +1,42 @@
 using MachineLicenseManagement.WebKeyGen;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using Microsoft.Extensions.Options;
+using NSwag;
+using NSwag.Generation.AspNetCore;
+
+if (args.Contains("--export-openapi"))
+{
+    var apiBuilder = WebApplication.CreateBuilder(args);
+    apiBuilder.Services.AddControllers();
+    apiBuilder.Services.AddEndpointsApiExplorer();
+    //apiBuilder.Services.AddOpenApiDocument(config =>
+    //{
+    //    config.Title = "LicenseManagement.WebKeyGen API";
+    //    config.Version = "v1";
+    //    config.PostProcess = document => {
+    //        document.Servers.Add(new OpenApiServer() { Url = "http://10.19.93.22/webkeygen" });
+    //    };
+    //});
+    var apiApp = apiBuilder.Build();
+    var apiDescriptionProvider = apiApp.Services.GetRequiredService<IApiDescriptionGroupCollectionProvider>();
+    var generator = new AspNetCoreOpenApiDocumentGenerator(new AspNetCoreOpenApiDocumentGeneratorSettings()
+    {
+        Title = "LicenseManagement.WebKeyGen API",
+        Version = "v1",
+        PostProcess = document =>
+        {
+            document.Servers.Add(new OpenApiServer() { Url = "/webkeygen" });
+        }
+    });
+    
+    var document = await generator.GenerateAsync(apiDescriptionProvider.ApiDescriptionGroups);
+
+    await File.WriteAllTextAsync("openapi-webkeygen.json", document.ToJson());
+    return;
+}
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddSingleton(LiteDbConfig.CreateDatabase());

@@ -2,7 +2,7 @@ FROM node:lts
 USER root
 RUN mkdir -p /source/node_modules
 RUN chmod 777 /source/node_modules
-RUN apt-get update && apt-get install -y zip
+RUN apt-get update && apt-get install -y zip default-jre
 ADD https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip /aws/awscliv2.zip 
 WORKDIR /aws
 RUN unzip /aws/awscliv2.zip

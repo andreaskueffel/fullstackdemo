@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "generate": "openapi-generator-cli generate -i http://localhost:62062/swagger/v1/swagger.json -g typescript-angular -o ./src/app/generated/api-client"
+    "generate": "openapi-generator-cli generate -i openapi-webkeygen.json -g typescript-angular -o ./src/app/generated/api-client"
   },
   "prettier": {
     "overrides": [
