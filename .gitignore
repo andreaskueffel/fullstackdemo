@@ -368,3 +368,4 @@ MachineLicenceManagement.WebApi/Properties/launchSettings.json
 /MachineLicenseManagement.WebKeyGen/wwwroot/lib
 /MachineLicenseManagement.WebKeyGen/wwwroot
 /MachineLicenseManagement.WebKeyGenUI/src/app/generated
+/MachineLicenseManagement.WebKeyGenUI/package-lock.json
