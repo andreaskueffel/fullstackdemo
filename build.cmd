@@ -1,5 +1,5 @@
 
-echo off
+@echo off
 setlocal enabledelayedexpansion
 
 echo === Build WebKeyGen UI ===
@@ -20,15 +20,15 @@ copy /y "%API_DIR%\openapi-webkeygen.json" "%UI_DIR%" >nul
 :: 2) Build Angular UI
 echo [STEP] npm install
 pushd "%UI_DIR%"
-npm install
+call npm install --no-fund --verbose
 if errorlevel 1 exit /b 1
 
 echo [STEP] npm run generate
-npm run generate
+call npm run generate
 if errorlevel 1 exit /b 1
 
 echo [STEP] ng build --configuration production
-npx ng build --configuration production
+call ng build --configuration production
 if errorlevel 1 exit /b 1
 popd
 
@@ -39,6 +39,10 @@ if exist "%WWWROOT%" rmdir /s /q "%WWWROOT%"
 mkdir "%WWWROOT%"
 
 xcopy /e /i /y "%UI_DIR%\dist\WebKeyGenUi\browser\*" "%WWWROOT%\" >nul
+
+echo [STEP] Run App
+dotnet run --project "%API_DIR%"
+
 
 echo === DONE ===
 exit /b 0
