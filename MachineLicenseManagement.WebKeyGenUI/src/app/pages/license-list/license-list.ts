@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { LicenseService } from '../../generated/api-client';
+import { LicenseService } from '../../services/license.service';
 
 @Component({
   selector: 'app-license-list',
