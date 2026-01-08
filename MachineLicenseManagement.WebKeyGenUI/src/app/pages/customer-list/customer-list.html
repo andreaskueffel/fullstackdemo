@@ -1,6 +1,28 @@
-<h2>Kundenliste, als "Hallo Welt" Beispiel</h2>
-    <ul>
-      <li *ngFor="let customer of customers">
-        <a>{{ customer.name }}</a>
-      </li>
-    </ul>
+<h2>Kundenliste</h2>
+<button routerLink="/customers/new" class="create-btn">
+  + Neuer Kunde
+</button>
+<table border="1" style="width: 100%; border-collapse: collapse;">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Adresse</th>
+      <th>PLZ</th>
+      <th>Stadt</th>
+      <th>Land</th>
+      <th>Kommentar</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let customer of customers">
+      <td>{{ customer.id }}</td>
+      <td>{{ customer.name }}</td>
+      <td>{{ customer.address }}</td>
+      <td>{{ customer.zip }}</td>
+      <td>{{ customer.city }}</td>
+      <td>{{ customer.country }}</td>
+      <td>{{ customer.comment }}</td>
+    </tr>
+  </tbody>
+</table>
