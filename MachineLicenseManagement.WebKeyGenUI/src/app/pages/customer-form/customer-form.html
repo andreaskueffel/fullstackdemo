@@ -1,1 +1,36 @@
-<p>customer-form works!</p>
+<h2>Neuer Kunde</h2>
+
+<form (ngSubmit)="onSubmit()">
+  <div>
+    <label>Name*:</label>
+    <input type="text" [(ngModel)]="customer.name" name="name" required>
+  </div>
+
+  <div>
+    <label>Adresse:</label>
+    <input type="text" [(ngModel)]="customer.address" name="address">
+  </div>
+
+  <div>
+    <label>PLZ:</label>
+    <input type="text" [(ngModel)]="customer.zip" name="zip">
+  </div>
+
+  <div>
+    <label>Stadt:</label>
+    <input type="text" [(ngModel)]="customer.city" name="city">
+  </div>
+
+  <div>
+    <label>Land:</label>
+    <input type="text" [(ngModel)]="customer.country" name="country">
+  </div>
+
+  <div>
+    <label>Kommentar:</label>
+    <textarea [(ngModel)]="customer.comment" name="comment"></textarea>
+  </div>
+
+  <button type="submit">Speichern</button>
+  <button type="button" routerLink="/customers">Abbrechen</button>
+</form>
