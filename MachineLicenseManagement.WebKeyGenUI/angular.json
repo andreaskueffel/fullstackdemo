@@ -27,10 +27,16 @@
               {
                 "glob": "**/*",
                 "input": "public"
+              },
+              {
+                "glob": "**/*",
+                "input": "./node_modules/@dvs-design-system/components-js/dist/components-js/assets/",
+                "output": "assets"
               }
             ],
             "styles": [
-              "src/styles.scss"
+              "src/styles.scss",
+              "./node_modules/@dvs-design-system/components-js/dist/components-js/components-js.css"
             ]
           },
           "configurations": {
