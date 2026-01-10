@@ -1,36 +1,80 @@
-<h2>Neuer Kunde</h2>
+<div class="form-container">
+  <h2>Neuer Kunde</h2>
 
-<form (ngSubmit)="onSubmit()">
-  <div>
-    <label>Name*:</label>
-    <input type="text" [(ngModel)]="customer.name" name="name" required>
-  </div>
+  <form (ngSubmit)="onSubmit()">
 
-  <div>
-    <label>Adresse:</label>
-    <input type="text" [(ngModel)]="customer.address" name="address">
-  </div>
+    <div class="form-group">
+      <label>Name*:</label>
+      <input type="text"
+             [(ngModel)]="customer.name"
+             name="name"
+             [class.error]="errors.name">
+      <span class="error-message" *ngIf="errors.name">
+        {{ errors.name }}
+      </span>
+    </div>
 
-  <div>
-    <label>PLZ:</label>
-    <input type="text" [(ngModel)]="customer.zip" name="zip">
-  </div>
 
-  <div>
-    <label>Stadt:</label>
-    <input type="text" [(ngModel)]="customer.city" name="city">
-  </div>
+    <div class="form-group">
+      <label>Adresse*:</label>
+      <input type="text"
+             [(ngModel)]="customer.address"
+             name="address"
+             [class.error]="errors.address">
+      <span class="error-message" *ngIf="errors.address">
+        {{ errors.address }}
+      </span>
+    </div>
 
-  <div>
-    <label>Land:</label>
-    <input type="text" [(ngModel)]="customer.country" name="country">
-  </div>
+    <div class="form-group">
+      <label>PLZ*:</label>
+      <input type="text"
+             [(ngModel)]="customer.zip"
+             name="zip"
+             [class.error]="errors.zip"
+             placeholder="12345"
+             maxlength="5">
+      <span class="error-message" *ngIf="errors.zip">
+        {{ errors.zip }}
+      </span>
+    </div>
 
-  <div>
-    <label>Kommentar:</label>
-    <textarea [(ngModel)]="customer.comment" name="comment"></textarea>
-  </div>
 
-  <button type="submit">Speichern</button>
-  <button type="button" routerLink="/customers">Abbrechen</button>
-</form>
+    <div class="form-group">
+      <label>Stadt*:</label>
+      <input type="text"
+             [(ngModel)]="customer.city"
+             name="city"
+             [class.error]="errors.city">
+      <span class="error-message" *ngIf="errors.city">
+        {{ errors.city }}
+      </span>
+    </div>
+
+
+    <div class="form-group">
+      <label>Land*:</label>
+      <input type="text"
+             [(ngModel)]="customer.country"
+             name="country"
+             [class.error]="errors.country" />
+      <span class="error-message" *ngIf="errors.country">
+        {{ errors.country }}
+      </span>
+    </div>
+
+
+    <div class="form-group">
+      <label>Kommentar:</label>
+      <textarea [(ngModel)]="customer.comment"
+                name="comment"
+                rows="4"></textarea>
+    </div>
+
+
+    <div class="form-actions">
+      <button type="submit" class="btn-submit">Speichern</button>
+      <button type="button" class="btn-cancel" routerLink="/customers">Abbrechen</button>
+    </div>
+  </form>
+</div>
