@@ -21,14 +21,44 @@ export class CustomerForm {
     comment: ''
   };
 
+  errors: any = {};
+  validateForm(): boolean {
+    this.errors = {};
+    if (!this.customer.name || !this.customer.name.trim()) {
+      this.errors.name = 'Name ist erforderlich';
+    }
+
+    if (!this.customer.address || !this.customer.address.trim()) {
+      this.errors.address = 'Adresse ist erforderlich';
+    }
+
+    if (!this.customer.zip || !this.customer.zip.trim()) {
+      this.errors.zip = 'PLZ ist erforderlich';
+    }
+    else if (this.customer.zip && !/^\d{5}$/.test(this.customer.zip)) {
+      this.errors.zip = 'PLZ muss 5 Ziffern haben';
+    }
+
+    if (!this.customer.city || !this.customer.city.trim()) {
+      this.errors.city = 'Stadt ist erforderlich';
+    }
+
+    if (!this.customer.country || !this.customer.country.trim()) {
+      this.errors.country = 'Land ist erforderlich';
+    }
+
+    return Object.keys(this.errors).length === 0;
+
+  }
+
+
   constructor(
     private customerService: CustomerService,
     private router: Router
   ) { }
 
   onSubmit() {
-    if (!this.customer.name || this.customer.name.trim() === '') {
-      alert('Bitte geben Sie einen Namen ein!');
+    if (!this.validateForm()) {
       return;
     }
     this.customerService.customerCreate(this.customer).subscribe({
