@@ -18,7 +18,7 @@ namespace MachineLicenseManagement.WebKeyGen
             userCollection = _db.GetCollection<UserModel>("users");
             customerCollection = _db.GetCollection<CustomerModel>("customers");
 
-            if(!customerCollection.FindAll().Any())
+            if (!customerCollection.FindAll().Any())
             {
                 customerCollection.Insert(new CustomerModel { Name = "Default Customer" });
             }
@@ -42,17 +42,31 @@ namespace MachineLicenseManagement.WebKeyGen
 
 
         public IEnumerable<CustomerModel> GetCustomers() => customerCollection.FindAll();
-
+        public CustomerModel? GetCustomerById(int id) => customerCollection.FindById(id);
         public IEnumerable<LicenseModel> GetLicenses() => licenseCollection.FindAll();
+        public LicenseModel? GetById(int id) => licenseCollection.FindById(id);
 
         public bool CreateCustomer(CustomerModel customer)
         {
             if (customerCollection.Exists(c => c.Name == customer.Name))
                 return false;
+            customer.Id = 0;
             customerCollection.Insert(customer);
             return true;
         }
 
+        public bool UpdateCustomer(CustomerModel customer)
+        {
+            return customerCollection.Upsert(customer);
+        }
+
+        public bool DeleteCustomer(int id)
+        {
+            var customer = GetCustomerById(id);
+            if (customer == null) return false;
+            customerCollection.Delete(id);
+            return true;
+        }
         public bool SaveLicense(LicenseModel license)
         {
             if (licenseCollection.Exists(l => l.LicenseKey == license.LicenseKey && l.Id != license.Id))
@@ -63,11 +77,5 @@ namespace MachineLicenseManagement.WebKeyGen
                 licenseCollection.Update(license);
             return true;
         }
-
-        
-
-        public LicenseModel? GetById(int id) => licenseCollection.FindById(id);
-
-        
     }
 }
