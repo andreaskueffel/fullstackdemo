@@ -2,7 +2,11 @@
 <button routerLink="/customers/new" class="create-btn">
   + Neuer Kunde
 </button>
-<table border="1" style="width: 100%; border-collapse: collapse;">
+<div *ngIf="isLoading" class="loading">
+  Lädt Kunden...
+</div>
+
+<table *ngIf="!isLoading" border="1" style="width: 100%; border-collapse: collapse;">
   <thead>
     <tr>
       <th>ID</th>
@@ -12,6 +16,7 @@
       <th>Stadt</th>
       <th>Land</th>
       <th>Kommentar</th>
+      <th>Aktionen</th>
     </tr>
   </thead>
   <tbody>
@@ -23,6 +28,16 @@
       <td>{{ customer.city }}</td>
       <td>{{ customer.country }}</td>
       <td>{{ customer.comment }}</td>
+      <td class="actions">
+        <button class="btn-edit"
+                (click)="editCustomer(customer.id)">
+          Bearbeiten
+        </button>
+        <button class="btn-delete"
+                (click)="deleteCustomer(customer.id)">
+          Löschen
+        </button>
+      </td>
     </tr>
   </tbody>
 </table>
