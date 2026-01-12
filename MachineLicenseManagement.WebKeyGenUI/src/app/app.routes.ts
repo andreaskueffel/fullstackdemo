@@ -6,6 +6,8 @@ import { LicenseList } from './pages/license-list/license-list';
 export const routes: Routes = [
   { path: '', redirectTo: 'licenses', pathMatch: 'full' },
   { path: 'licenses', component: LicenseList },
-  { path: 'customers/new', component: CustomerForm },
+  // { path: 'licenses/new', component: LicenseCreate },
   { path: 'customers', component: CustomerList },
+  { path: 'customers/new', component: CustomerForm },
+  { path: 'customers/edit/:id', component: CustomerForm },
 ];
