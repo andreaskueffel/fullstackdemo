@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
+import { Router, RouterModule, ActivatedRoute } from '@angular/router';
 import { CustomerService } from '../../services/customer.service';
 
 @Component({
@@ -22,6 +22,41 @@ export class CustomerForm {
   };
 
   errors: any = {};
+  customerId: number | null = null;
+  isEditMode = false;
+  isLoading = false;
+
+  constructor(
+    private customerService: CustomerService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {
+    this.route.params.subscribe(params => {
+      if (params['id']) {
+        this.customerId = +params['id'];
+        this.isEditMode = true;
+        this.loadCustomer();
+      }
+    });
+  }
+
+  loadCustomer() {
+    if (!this.customerId) return;
+    this.isLoading = true;
+    this.customerService.customerGetById(this.customerId).subscribe({
+      next: (data) => {
+        this.customer = data;
+        this.isLoading = false;
+      },
+      error: (error) => {
+        console.error('Error loading customer:', error);
+        alert('Kunde konnte nicht geladen werden');
+        this.router.navigate(['/customers']);
+      }
+    });
+  }
+
+
   validateForm(): boolean {
     this.errors = {};
     if (!this.customer.name || !this.customer.name.trim()) {
@@ -51,26 +86,34 @@ export class CustomerForm {
 
   }
 
-
-  constructor(
-    private customerService: CustomerService,
-    private router: Router
-  ) { }
-
   onSubmit() {
     if (!this.validateForm()) {
       return;
     }
-    this.customerService.customerCreate(this.customer).subscribe({
-      next: (response) => {
-        console.log('Customer created:', response);
-        alert('Kunde erfolgreich erstellt!');
-        this.router.navigate(['/customers']);
-      },
-      error: (error) => {
-        console.error('Error:', error);
-        alert('Fehler beim Erstellen des Kunden');
-      }
-    });
+    if (this.isEditMode) {
+      this.customerService.customerUpdate(this.customer).subscribe({
+        next: (response) => {
+          console.log('Customer updated:', response);
+          alert('Kunde erfolgreich aktualisiert!');
+          this.router.navigate(['/customers']);
+        },
+        error: (error) => {
+          console.error('Error:', error);
+          alert('Fehler beim Aktualisieren des Kunden');
+        }
+      });
+    } else {
+      this.customerService.customerCreate(this.customer).subscribe({
+        next: (response) => {
+          console.log('Customer created:', response);
+          alert('Kunde erfolgreich erstellt!');
+          this.router.navigate(['/customers']);
+        },
+        error: (error) => {
+          console.error('Error:', error);
+          alert('Fehler beim Erstellen des Kunden');
+        }
+      });
+    }
   }
 }
