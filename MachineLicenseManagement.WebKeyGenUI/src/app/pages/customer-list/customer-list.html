@@ -1,43 +1,40 @@
 <h2>Kundenliste</h2>
-<button routerLink="/customers/new" class="create-btn">
+<dvs-button routerLink="/customers/new" class="create-btn">
   + Neuer Kunde
-</button>
+</dvs-button>
 <div *ngIf="isLoading" class="loading">
   Lädt Kunden...
 </div>
 
-<table *ngIf="!isLoading" border="1" style="width: 100%; border-collapse: collapse;">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Name</th>
-      <th>Adresse</th>
-      <th>PLZ</th>
-      <th>Stadt</th>
-      <th>Land</th>
-      <th>Kommentar</th>
-      <th>Aktionen</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let customer of customers">
-      <td>{{ customer.id }}</td>
-      <td>{{ customer.name }}</td>
-      <td>{{ customer.address }}</td>
-      <td>{{ customer.zip }}</td>
-      <td>{{ customer.city }}</td>
-      <td>{{ customer.country }}</td>
-      <td>{{ customer.comment }}</td>
-      <td class="actions">
-        <button class="btn-edit"
-                (click)="editCustomer(customer.id)">
+  <dvs-datatable *ngIf="!isLoading" [totalSize]="customers.length" [pageSize]="10"
+label-items-per-page="Pro Seite"
+label-page-from="von">
+    <dvs-datatable-header-row>
+      <dvs-datatable-header-cell>ID</dvs-datatable-header-cell>
+      <dvs-datatable-header-cell>Name</dvs-datatable-header-cell>
+      <dvs-datatable-header-cell>Adresse</dvs-datatable-header-cell>
+      <dvs-datatable-header-cell>PLZ</dvs-datatable-header-cell>
+      <dvs-datatable-header-cell>Stadt</dvs-datatable-header-cell>
+      <dvs-datatable-header-cell>Land</dvs-datatable-header-cell>
+      <dvs-datatable-header-cell>Kommentar</dvs-datatable-header-cell>
+      <dvs-datatable-header-cell>Aktionen</dvs-datatable-header-cell>
+    </dvs-datatable-header-row>
+
+    <dvs-datatable-row *ngFor="let customer of customers">
+      <dvs-datatable-cell>{{ customer.id }}</dvs-datatable-cell>
+      <dvs-datatable-cell>{{ customer.name }}</dvs-datatable-cell>
+      <dvs-datatable-cell>{{ customer.address }}</dvs-datatable-cell>
+      <dvs-datatable-cell>{{ customer.zip }}</dvs-datatable-cell>
+      <dvs-datatable-cell>{{ customer.city }}</dvs-datatable-cell>
+      <dvs-datatable-cell>{{ customer.country }}</dvs-datatable-cell>
+      <dvs-datatable-cell>{{ customer.comment }}</dvs-datatable-cell>
+      <dvs-datatable-cell>
+        <dvs-button (click)="editCustomer(customer.id)" variant="secondary" size="small" style="margin-right: 8px;">
           Bearbeiten
-        </button>
-        <button class="btn-delete"
-                (click)="deleteCustomer(customer.id)">
+        </dvs-button>
+        <dvs-button (click)="deleteCustomer(customer.id)" variant="danger" size="small">
           Löschen
-        </button>
-      </td>
-    </tr>
-  </tbody>
-</table>
+        </dvs-button>
+      </dvs-datatable-cell>
+    </dvs-datatable-row>
+  </dvs-datatable>

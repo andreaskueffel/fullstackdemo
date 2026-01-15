@@ -1,11 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule, Router } from '@angular/router';  
+import { RouterModule, Router } from '@angular/router';
 import { CustomerService, Customer } from '../../services/customer.service';
+import { ComponentsAngularModule } from "@dvs-design-system/components-angular";
 
 @Component({
   selector: 'app-customer-list',
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, ComponentsAngularModule],
+  standalone: true,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './customer-list.html',
   styleUrl: './customer-list.scss'
 })
@@ -14,11 +17,12 @@ export class CustomerList {
   isLoading = true;
 
   constructor(
-    private customerService: CustomerService,  
-    private router: Router  
+    private customerService: CustomerService,
+    private router: Router
   ) {
-    this.loadCustomers();  
+    this.loadCustomers();
   }
+
 
   loadCustomers() {
     this.isLoading = true;
@@ -49,7 +53,7 @@ export class CustomerList {
       next: () => {
         console.log('Customer deleted');
         alert('Kunde erfolgreich gelöscht!');
-        this.loadCustomers(); 
+        this.loadCustomers();
       },
       error: (error) => {
         console.error('Error deleting customer:', error);
