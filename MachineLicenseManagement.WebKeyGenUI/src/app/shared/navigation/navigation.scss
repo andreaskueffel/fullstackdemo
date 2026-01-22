@@ -1,0 +1,21 @@
+.main-navigation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  z-index: 1000;
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+  background-color: var(--color-dark-blue, #1a2331);
+}
+
+
+dvs-icons-menu {
+  height: 100%;
+  --dvs-icons-menu-item--background-color--active: #2d3e54;
+}
+
+
+dvs-icons-menu-item:hover {
+  cursor: pointer;
+  opacity: 0.9;
+}
