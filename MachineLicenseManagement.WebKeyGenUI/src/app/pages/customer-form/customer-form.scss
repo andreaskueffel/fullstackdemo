@@ -5,7 +5,7 @@
 }
 
 h2 {
-  color: #333;
+  color: white;
   margin-bottom: 30px;
   font-size: 28px;
   text-align: center;
@@ -21,12 +21,12 @@ form {
   div {
     margin-bottom: 15px;
 
-    label {
-      display: block;
-      margin-bottom: 5px;
-      font-weight: bold;
-      color: #333;
-    }
+    //label {
+    //  display: block;
+    //  margin-bottom: 5px;
+    //  font-weight: bold;
+    //  color: #333;
+    //}
 
     input, textarea {
       width: 100%;
@@ -75,11 +75,6 @@ form {
   }
 }
 
-h2 {
-  color: #333;
-  margin-bottom: 30px;
-  font-size: 24px;
-}
 
 .form-group {
   margin-bottom: 20px;
@@ -88,7 +83,7 @@ h2 {
     display: block;
     margin-bottom: 8px;
     font-weight: 600;
-    color: #333;
+    color: white;
     font-size: 14px;
   }
 
