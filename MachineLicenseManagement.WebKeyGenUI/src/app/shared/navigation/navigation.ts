@@ -8,8 +8,8 @@ import { ComponentsAngularModule } from "@dvs-design-system/components-angular";
   standalone: true,
   imports: [CommonModule, RouterModule, ComponentsAngularModule],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  templateUrl: './navigation.component.html',
-  styleUrl: './navigation.component.scss'
+  templateUrl: './navigation.html',
+  styleUrl: './navigation.scss'
 })
 export class NavigationComponent {
   constructor(private router: Router) { }
